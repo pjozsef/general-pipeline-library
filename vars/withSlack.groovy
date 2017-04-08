@@ -32,7 +32,7 @@ def call(Map args, Closure body) {
         }
         if(e.cause){
             fields << [title: "Error cause",
-                       value: e.cause,
+                       value: e.cause.class,
                        short: false]
         }
         text = (prev && prev == hudson.model.Result.FAILURE) ? "$name is still failing" : "$name is failing"
