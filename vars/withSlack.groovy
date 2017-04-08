@@ -24,10 +24,17 @@ def call(Map args, Closure body) {
                        short: false],
                       [title: "Blue Ocean url",
                        value: blueocean,
-                       short: false],
-                      [title: "Cause",
-                       value: e.cause,
                        short: false]]
+        if(e.message){
+            fields << [title: "Error message",
+                       value: e.message,
+                       short: false]
+        }
+        if(e.cause){
+            fields << [title: "Error cause",
+                       value: e.cause,
+                       short: false]
+        }
         text = (prev && prev == hudson.model.Result.FAILURE) ? "$name is still failing" : "$name is failing"
         attachments << [fallback: text,
                         color   : "danger",
