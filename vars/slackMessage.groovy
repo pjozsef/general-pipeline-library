@@ -1,3 +1,5 @@
+import groovy.json.JsonOutput
+
 def call(Map args){
     def slackURL = args['webhook'] ?: env.SLACK_WEBHOOK
     def message = args['text']
