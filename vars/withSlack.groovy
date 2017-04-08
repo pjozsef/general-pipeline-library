@@ -14,28 +14,18 @@ def call(Map args, Closure body) {
         }
     } catch (e) {
         def name = env.JOB_NAME + " " + env.BUILD_DISPLAY_NAME
-        def classic = env.BUILD_URL
+        def classic = "$env.BUILD_URL"
         def console = "${env.BUILD_URL}console"
         def blueocean = "${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline"
 
-        def fields = [[title: "Classic url",
-                       value: classic,
-                       short: false],
-                      [title: "Console url",
-                       value: console,
-                       short: false],
-                      [title: "Blue Ocean url",
-                       value: blueocean,
-                       short: false]]
+        def fields = [field("Classic url", classic),
+                      field("Console url", console),
+                      field("Blue Ocean url", blueocean)]
         if(e.message){
-            fields << [title: "Error message",
-                       value: e.message,
-                       short: false]
+            fields << field("Error message", e.message)
         }
         if(recursiveCause(e)){
-            fields << [title: "Error cause",
-                       value: recursiveCause(e),
-                       short: false]
+            fields << field("Error cause", recursiveCause(e))
         }
         text = (prev && prev == hudson.model.Result.FAILURE) ? "$name is still failing" : "$name is failing"
         attachments << [fallback: text,
@@ -53,10 +43,16 @@ def call(Map args, Closure body) {
     }
 }
 
-private recursiveCause(e){
+private static recursiveCause(e){
     def cause = e?.cause
     while(cause?.cause){
         cause = cause.cause
     }
     return (cause ?: e)?.class?.toString()
+}
+
+private static field(String title, String value){
+    return [title: title,
+            value: value,
+            short: false]
 }
