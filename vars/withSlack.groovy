@@ -30,9 +30,9 @@ def call(Map args, Closure body) {
                        value: e.message,
                        short: false]
         }
-        if(e.cause){
+        if(recursiveCause(e)){
             fields << [title: "Error cause",
-                       value: e.cause.class,
+                       value: recursiveCause(e).class,
                        short: false]
         }
         text = (prev && prev == hudson.model.Result.FAILURE) ? "$name is still failing" : "$name is failing"
@@ -49,3 +49,12 @@ def call(Map args, Closure body) {
         }
     }
 }
+
+private recursiveCause(e){
+    def cause = e?.cause
+    while(cause?.cause){
+        cause = cause.cause
+    }
+    return (cause ?: e)
+}
+
