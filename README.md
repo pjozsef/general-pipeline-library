@@ -44,3 +44,8 @@ node {
 | body          | The closure which is wrapped by the withSlack step. If the body is failing, or failed previously and now passes, then a Slack message will be generated automatically. | CLosure () -> () |  ✔
 | username      | the username of the bot posting the message. Defaults to 'jenkins' | String | ✘ |
 | iconEmoji     | Slack emoji that is shown as the icon for the message | String | ✘ |
+
+
+## Legal stuff
+This library is provided as-is, under the MIT license, without any warranties, what so ever.<br>
+Pull requests are welcome, if you find something.
