@@ -46,6 +46,14 @@ node {
 | iconEmoji     | Slack emoji that is shown as the icon for the message | String | ✘ |
 
 
+## Other project
+[android-pipeline-library](https://github.com/pjozsef/android-pipeline-library), a Jenkins Pipeline library that focuses on Android device specific tasks, like building, testing, rebooting devices, etc.
+
+
+## Real life example
+For those who'd like to see something more complex than code snippets, [this Jenkinsfile](https://github.com/emartech/android-mobile-engage-sdk/blob/master/Jenkinsfile) is a real life usage of this library, utilizing both slack steps.
+
+
 ## Legal stuff
 This library is provided as-is, under the MIT license, without any warranties, what so ever.<br>
 Pull requests are welcome, if you find something.
