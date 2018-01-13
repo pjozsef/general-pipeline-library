@@ -41,7 +41,7 @@ node {
 | :-:           | :-:                                            | :-:       | :-:       |
 | webhook       | the URL you got from Slack when integrating Incoming WebHooks. If not set, the step looks for it under SLACK_WEBHOOK environment variable. If there is no value specified at either places, the message wont be sent. | String    | ✔         |
 | channel       | the Slack channel to post the message to. If not set, the message wont be sent.       | String    | ✔ |
-| body          | The closure which is wrapped by the withSlack step. If the body is failing, or failed previously and now passes, then a Slack message will be generated automatically. | CLosure () -> () |  ✔
+| body          | The closure which is wrapped by the withSlack step. If the body is failing, or failed previously and now passes, then a Slack message will be generated automatically. | Closure () -> () |  ✔
 | username      | the username of the bot posting the message. Defaults to 'jenkins' | String | ✘ |
 | iconEmoji     | Slack emoji that is shown as the icon for the message | String | ✘ |
 
