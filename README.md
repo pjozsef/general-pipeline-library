@@ -3,6 +3,7 @@ Public repository for general Jenkins pipeline steps.
 
 ## How to use in your own Jenkins setup
 If you are not sure about how to use shared libraries, take a look at the [documentation](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-libraries).
+It is advised to either use a specific commit/tag, instead of always the latest version.
 
 ## Pipeline steps
 All steps can be found under the vars folder.
@@ -41,9 +42,17 @@ node {
 | :-:           | :-:                                            | :-:       | :-:       |
 | webhook       | the URL you got from Slack when integrating Incoming WebHooks. If not set, the step looks for it under SLACK_WEBHOOK environment variable. If there is no value specified at either places, the message wont be sent. | String    | ✔         |
 | channel       | the Slack channel to post the message to. If not set, the message wont be sent.       | String    | ✔ |
-| body          | The closure which is wrapped by the withSlack step. If the body is failing, or failed previously and now passes, then a Slack message will be generated automatically. | CLosure () -> () |  ✔
+| body          | The closure which is wrapped by the withSlack step. If the body is failing, or failed previously and now passes, then a Slack message will be generated automatically. | Closure () -> () |  ✔
 | username      | the username of the bot posting the message. Defaults to 'jenkins' | String | ✘ |
 | iconEmoji     | Slack emoji that is shown as the icon for the message | String | ✘ |
+
+
+## Other project
+[android-pipeline-library](https://github.com/pjozsef/android-pipeline-library), a Jenkins Pipeline library that focuses on Android device specific tasks, like building, testing, rebooting devices, etc.
+
+
+## Real life example
+For those who'd like to see something more complex than code snippets, [this Jenkinsfile](https://github.com/emartech/android-mobile-engage-sdk/blob/master/Jenkinsfile) is a real life usage of this library, utilizing both slack steps.
 
 
 ## Legal stuff
