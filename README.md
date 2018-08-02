@@ -92,6 +92,7 @@ This class represents the result of the `git describe` command with the followin
 * raw: The raw git describe output
 * mostRecentTag: The most recent tag that is reachable from the commit
 * isReleaseVersion: True if the commit is tagged
+
 [Located here](https://github.com/pjozsef/general-pipeline-library/blob/master/src/com/github/pjozsef/GitDescribe.groovy)
 
 For the following `git describe` outputs: 
