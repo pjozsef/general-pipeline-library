@@ -1,6 +1,9 @@
 def call(Map args) {
     def url = args['forUrl']
-    def acceptableStatusCodes = args['withAcceptableStatusCodes'] || ['200']
+    def acceptableStatusCodes = args['withAcceptableStatusCodes'] ?: ['200']
+    for (i = 0; i < acceptableStatusCodes.size(); ++i) {
+        acceptableStatusCodes[i] = acceptableStatusCodes[i].toString()
+    }
     Closure doIfExists = args['doIfExists'] as Closure
     Closure doIfDoesntExist = args['doIfDoesntExist'] as Closure
 
