@@ -1,7 +1,8 @@
 import com.github.pjozsef.GitDescribe
 
-def call() {
-    def rawDescribe = sh(script: 'git describe', returnStdout: true).trim()
+def call(Map args) {
+    def commitish = args['commitish'] ?: 'HEAD'
+    def rawDescribe = sh(script: "git describe $commitish", returnStdout: true).trim()
 
     def pattern = ~/\d+\.\d+\.\d+/
     def matcher = rawDescribe =~ pattern
