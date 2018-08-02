@@ -47,6 +47,64 @@ node {
 | iconEmoji     | Slack emoji that is shown as the icon for the message | String | ✘ |
 
 
+### gitDescribe
+A convenience method to invoke the `git describe` command. Returns a GitDescribe object, wrapping the result. For more information, 
+see the Utility Classes section.
+```groovy
+def describe = gitDescribe commitish: 'c65859d'
+echo describe.raw
+echo describe.mostRecentTag
+echo describe.isReleaseVersion.toString()
+```
+| argument      | description                                    | type      | mandatory |
+| :-:           | :-:                                            | :-:       | :-:       |
+| commitish     | the commit-ish object to describe. Defaults to 'HEAD'  | String    | ✘         |
+
+
+### urlResourceExists
+Checks via a GET request whether an HTTP resource exists or not. 
+Returns true if the response's statusCode is acceptable,
+false otherwise. Either the return value can be used or the supported result Closures. 
+By default, only HTTP status code 200 is considered acceptable.
+```groovy
+def url = "https://github.com"
+def existsAction = {
+    echo "Resource exists!"
+}
+def notExistsAction = {
+    echo "Resource does not exist!"
+}
+def codes = [200, 201, 202]
+urlResourceExists forUrl: url, withAcceptableStatusCodes: codes, doIfExists: existsAction, doIfDoesntExist: notExistsAction
+```
+| argument      | description                                    | type      | mandatory |
+| :-:           | :-:                                            | :-:       | :-:       |
+| forUrl        | the URL to check against                       | String    | ✔         |
+| withAcceptableStatusCodes        | you can specify which HTTP response status codes are considered acceptable. Defaults to status code 200.  | List<Integer/String>    | ✘         |
+| doIfExists    | the closure to invoke when the resource exists  | Closure () -> ()    | ✘         |
+| doIfDoesntExist | the closure to invoke when the resource does not exist  | Closure () -> ()    | ✘         |
+
+
+## Utility classes
+
+### GitDescribe
+This class represents the result of the `git describe` command with the following fields:
+* raw: The raw git describe output
+* mostRecentTag: The most recent tag that is reachable from the commit
+* isReleaseVersion: True if the commit is tagged
+[Located here](https://github.com/pjozsef/general-pipeline-library/blob/master/src/com/github/pjozsef/GitDescribe.groovy)
+
+For the following `git describe` outputs: 
+```shell
+1.6.0-2-gc65859d
+2.3.1
+```
+The corresponding GitDescribe objects are:
+```
+GitDescribe('1.6.0-2-gc65859d', '1.6.0', false)
+GitDescribe('2.3.1', '2.3.1', true)
+```
+
 ## Other project
 [android-pipeline-library](https://github.com/pjozsef/android-pipeline-library), a Jenkins Pipeline library that focuses on Android device specific tasks, like building, testing, rebooting devices, etc.
 
