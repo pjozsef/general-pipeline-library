@@ -7,7 +7,7 @@ def call() {
     def matcher = rawDescribe =~ pattern
 
     def mostRecentTag = matcher.count < 1 ? null : matcher[0]
-    def isReleaseVersion = rawDescribe ==~ /\d+\.\d+\.\d+/
+    def isReleaseVersion = rawDescribe ==~ pattern
 
     return new GitDescribe(rawDescribe, mostRecentTag, isReleaseVersion)
 }
